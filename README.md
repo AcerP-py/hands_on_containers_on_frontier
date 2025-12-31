@@ -15,6 +15,15 @@ If you encounter an error that says something along the lines of 'disk quota exc
 that likely means you run out of space in your home directory. You can delete `~/.apptainer/cache` to 
 remove the cached stuff from Apptainer.
 
+You might also see output like the below
+```
+INFO:    fuse2fs not found, will not be able to mount EXT3 filesystems
+INFO:    gocryptfs not found, will not be able to use gocryptfs
+```
+which can get repeated many times in the output when you are running MPI across multiple nodes.
+These can be safely ignored, and you can hide them from being printed by passing the `apptainer
+--silent` flag.
+
 Now onto the tutorial!
 
 ## apptainer pull, shell, exec commands
@@ -24,14 +33,14 @@ Don't forget the `docker://` prefix if pulling from some container registry
 (dockerhub, quay, harbor, etc) and the image is an OCI image.
 
 ```
-apptainer pull opensuse.sif docker://opensuse/leap:15.4
+apptainer pull opensuse.sif docker://opensuse/leap:15.6
 ```
 
 Better practice is to use full url to indicate which registry you are getting
 the image from.
 
 ```
-apptainer pull opensuse.sif docker://docker.io/opensuse/leap:15.4
+apptainer pull opensuse.sif docker://docker.io/opensuse/leap:15.6
 ```
 
 To start a container and open an interactive shell with the image you pulled,
@@ -39,15 +48,17 @@ To start a container and open an interactive shell with the image you pulled,
 
 ```
 apptainer shell opensuse.sif
+INFO:    fuse2fs not found, will not be able to mount EXT3 filesystems
+INFO:    gocryptfs not found, will not be able to use gocryptfs
 Apptainer> cat /etc/os-release
 NAME="openSUSE Leap"
-VERSION="15.4"
+VERSION="15.6"
 ID="opensuse-leap"
 ID_LIKE="suse opensuse"
-VERSION_ID="15.4"
-PRETTY_NAME="openSUSE Leap 15.4"
+VERSION_ID="15.6"
+PRETTY_NAME="openSUSE Leap 15.6"
 ANSI_COLOR="0;32"
-CPE_NAME="cpe:/o:opensuse:leap:15.4"
+CPE_NAME="cpe:/o:opensuse:leap:15.6"
 BUG_REPORT_URL="https://bugs.opensuse.org"
 HOME_URL="https://www.opensuse.org/"
 DOCUMENTATION_URL="https://en.opensuse.org/Portal:Leap"
@@ -88,7 +99,7 @@ $ cd examples/1_buildcontainers
 $ apptainer build simpledocker.sif simpledocker.def
 
 # simplelocalimage
-$ apptainer pull --disable-cache opensuse.sif docker://docker.io/opensuse/leap:15.5
+$ apptainer pull --disable-cache opensuse.sif docker://docker.io/opensuse/leap:15.6
 $ apptainer build simplelocalimage.sif simplelocalimage.def
 
 # simpleoras
@@ -167,7 +178,7 @@ There are other registries that support ORAS. See here: https://oras.land/adopte
 ## Running your container in a job with Slurm
 ```
 $ cd examples/3_simplejob
-$ apptainer build simpleoras.sif simpleoras.def
+$ apptainer build simpledocker.sif simpledocker.def
 ```
 
 Edit the submit.sl file to use your project id and then submit the submit.sl file
