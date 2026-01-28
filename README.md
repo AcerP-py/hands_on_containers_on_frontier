@@ -1,4 +1,5 @@
-This repository is to accompany the March 26 2026 Container training.
+This repository is to accompany the March 26 2026 Container training. This tutorial
+is mostly standalone and can be used independent of the training.
 
 # Follow along
 
