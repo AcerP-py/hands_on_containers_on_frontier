@@ -1,5 +1,5 @@
 Bootstrap: localimage
-From: MPICH.sif
+From: mpich.sif
 
 %post
 apt -y install cmake

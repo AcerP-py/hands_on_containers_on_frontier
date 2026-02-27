@@ -380,19 +380,23 @@ from `/lustre/orion/stf007/world-shared/subil/hands_on_containers_on_frontier_re
 
 ## Running on Multiple Systems
 
-Sometime there are reasons that you may want to run a single workflow
+Sometimes there are reasons that you may want to run a single workflow
 on multiple machines, either here at the OLCF or at other user facilities.
 As we have shown previouly we can run on Frontier by binding in the host MPI
 libraries; however, we can also run using the MPI packaged in the container
 itself.
 
-For this example we will show an example of how to run a single LAMMPS container on Frontier and Andes.
+For this example we will show how to run a single LAMMPS container on Frontier and Andes.
 LAMMPS is a classical molecular dynamics simulation code focusing on materials modeling.
+To run on Frontier and Andes with the same MPI requires building with support
+for the Infiniband (Andes) and Slingshot (Frontier) network fabrics.
+To do this, we build MPICH in a container with the `ucx` and `libfabric` netmods enabled.
+
 To build our MPI container we will use a custom OLCF tool
 [Velocity](https://olcf.github.io/velocity/).
 We use this tool to build our base container images that we explained before.
-You can use the steps below to build the image for this example or use the prebuilt image 
-in `examples/5_multiple_systems/PREBUILT_MPICH.sif`.
+You can use the steps below to build the image for this example or pull the prebuilt image 
+from `savannah.ornl.gov/olcf-container-images/main:mpich_cpu_ubuntu`.
 
 ``` bash
 module load miniforge3  # we need python >= 3.10
@@ -407,10 +411,10 @@ git clone https://github.com/olcf/velocity-images.git
 # configure velocity
 export VELOCITY_IMAGE_PATH=$(realpath ./velocity-images)
 # build image
-velocity build mpich libfabric ucx gcc@0 cxi@12 -v -n MPICH.sif
+velocity build mpich libfabric ucx gcc@0 cxi@12 -n mpich
 ```
 Next we need to build LAMMPS. The script to do this can be found in `examples/5_multiple_systems/`.
-You can then use the provided submit scripts to run the same container on
+Then you can use the provided submit scripts to run the same container on
 Frontier and Andes (be sure to set your account properly in the batch scripts).
 
 
