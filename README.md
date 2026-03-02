@@ -413,7 +413,7 @@ export VELOCITY_IMAGE_PATH=$(realpath ./velocity-images)
 # build image
 velocity build mpich libfabric ucx gcc@0 cxi@12 -n mpich
 ```
-Next we need to build LAMMPS. The script to do this can be found in `examples/5_multiple_systems/`.
+Next we need to build LAMMPS. The script to do this can be found in `examples/6_multiple_systems/`.
 Then you can use the provided submit scripts to run the same container on
 Frontier and Andes (be sure to set your account properly in the batch scripts).
 
