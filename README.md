@@ -382,7 +382,7 @@ from `/lustre/orion/stf007/world-shared/subil/hands_on_containers_on_frontier_re
 
 Sometimes there are reasons that you may want to run a single workflow
 on multiple machines, either here at the OLCF or at other user facilities.
-As we have shown previouly we can run on Frontier by binding in the host MPI
+As we have shown previously we can run on Frontier by binding in the host MPI
 libraries; however, we can also run using the MPI packaged in the container
 itself.
 
